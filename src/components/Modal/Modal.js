@@ -1,24 +1,27 @@
 import { createPortal } from 'react-dom';
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { ModalWindow, Overlay } from './Modal.styled';
 
 const modalRoot = document.getElementById('modal-root');
 
 export const Modal = ({ onClose, children }) => {
+  const handleEscapeDown = useCallback(
+    event => {
+      if (event.code === 'Escape') {
+        onClose();
+      }
+    },
+    [onClose]
+  );
+
   useEffect(() => {
     window.addEventListener('keydown', handleEscapeDown);
 
     return () => {
       window.removeEventListener('keydown', handleEscapeDown);
     };
-  }, []);
-
-  function handleEscapeDown(event) {
-    if (event.code === 'Escape') {
-      onClose();
-    }
-  }
+  }, [handleEscapeDown]);
 
   const handleBackdropClick = event => {
     if (event.target === event.currentTarget) {

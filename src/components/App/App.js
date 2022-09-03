@@ -48,6 +48,7 @@ export const App = () => {
 
   const handleSearchbarSubmit = event => {
     event.preventDefault();
+
     const inputValue = event.target.elements.search.value.trim();
 
     if (inputValue === '') {
@@ -108,6 +109,7 @@ export const App = () => {
           </>
         )}
       </Box>
+
       {showModal && (
         <Modal onClose={closeModal}>
           <img src={modalImage} alt={searchQuery} />
